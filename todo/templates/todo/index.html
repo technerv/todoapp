@@ -1,0 +1,82 @@
+{% load static %}
+{% static "img" as baseUrl %}
+<!DOCTYPE html>
+<html>
+
+   <head>
+      <title>TO DO APP</title>
+      <meta name = "viewport" content = "width = device-width, initial-scale = 1.0">
+
+      <!-- Bootstrap -->
+      <link href = "{% static 'css/bootstrap.css' %}" rel = "stylesheet">
+      <link href = "{% static 'css/bootstrap.min.css' %}" rel = "stylesheet">
+      <link href = "{% static 'css/bootstrap-grid.css' %}" rel = "stylesheet">
+      <link href = "{% static 'css/bootstrap-grid.min.css' %}" rel = "stylesheet">
+      <link href = "{% static 'css/bootstrap-reboot.css' %}" rel = "stylesheet">
+      <link href = "{% static 'css/bootstrap-reboot.min.css' %}" rel = "stylesheet">
+
+
+      <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+      <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+
+      <!--[if lt IE 9]>
+      <script src = "{% static 'https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js' %}' %}"></script>
+      <script src = "{% static 'https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js' %}"></script>
+      <![endif]-->
+
+   </head>
+
+   <body>
+
+
+    <section id="cover">
+        <div id="cover-caption">
+            <div id="container" class="container">
+
+                <div class="row">
+                    <div class="col-sm-10 offset-sm-1 text-center">
+                           <br>
+                          <a class="navbar-brand-centered" >
+                                <p>To Do Application</p>
+                              </a>
+                        <br><br>
+                       <h5>Add Item</h5>
+                        <br>
+                        <div class="info-form">
+
+                            <form class="form-inline justify-content-center needs-validation" novalidate action="{% url 'todo:add_todo' %}" method="post" >
+                                <div class="form-group">
+                                    <input type="text" name="content" class="form-control" placeholder="type here">
+                                </div>
+                                <button type="submit" class="btn btn-primary ">Submit</button>
+                            </form>
+                        </div>
+                        <div class="">
+                            <ul class="list-group">
+                            {% for todo_item in todo_items %}
+                              <li class="list-group-item">{{ todo_item.text}}</li>
+                              <form action="{% url 'todo:delete_todo' todo_item.id %}" method="post">
+                                {% csrf_token %}
+                              <div class="float-right"><button type="submit" class="btn btn-danger ">Delete</button></div>
+                              </form>
+                            {% endfor %}
+                            </ul>
+                        </div>
+                        <br>
+                       <!--<p class="error"><strong>Error:</strong>-->
+                       <!--<a href="#nav-main" class="btn btn-secondary-outline btn-sm" role="button">↓</a>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+      <script src = "https://code.jquery.com/jquery.js"></script>
+
+      <!-- Include all compiled plugins (below), or include individual files as needed -->
+      <script src = "{% static 'js/bootstrap.bundle.js' %}"></script>
+      <script src = "{% static 'js/bootstrap.bundle.min.js' %}"></script>
+      <script src = "{% static 'js/bootstrap.js' %}"></script>
+      <script src = "{% static 'js/bootstrap.min.js' %}"></script>
+   </body>
+</html>
